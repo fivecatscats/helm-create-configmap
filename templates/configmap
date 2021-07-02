@@ -1,0 +1,26 @@
+{{/*
+{{ if not (or (empty .Values.name) (empty .Values.fname)) }}
+*/}}
+
+{{ if and (not (empty .Values.name)) (not (empty .Values.fname)) }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.name }}-configmap
+data:
+  {{- ( .Files.Glob .Values.fname ).AsConfig | nindent 2 }}
+---
+{{ end }}
+{{ $currentScope := .}}
+{{ range $path, $_ :=  .Files.Glob  "userfiles/*.yaml" }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ base $path | trimSuffix ".yaml" }}-configmap
+data:
+  {{- with $currentScope}}  
+  {{ base $path }}: |
+    {{- ( .Files.Get $path ) | nindent 4 }}
+  {{- end }}
+---
+{{ end }}

@@ -1,0 +1,7 @@
+cars:
+  - name: Ferrari
+    model: F40
+  - name: Bugatti
+    model: Veyron
+  - name: Skoda
+    model: Octavia vRS

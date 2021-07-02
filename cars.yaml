@@ -1,0 +1,7 @@
+cars:
+  - name: Mercedes
+    model: E350
+  - name: BMW
+    model: 530D
+  - name: Volvo
+    model: V70R
